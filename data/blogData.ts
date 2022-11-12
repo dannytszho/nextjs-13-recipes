@@ -1,4 +1,4 @@
-const blogData = [
+export const blogData = [
     {
         id: 1,
         title: 'delectus aut autem',
