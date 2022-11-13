@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Carousel from '../components/carousel'
 
 import HeaderImage from '../public/img/header.png'
 
@@ -27,7 +28,7 @@ export default function HomePage() {
                         anim id est laborum.
                     </p>
                 </div>
-                <div>blogPage carusol</div>
+                <Carousel />
             </div>
         </>
     )
