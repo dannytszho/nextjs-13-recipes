@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 export default function Nav() {
     return (
         <ul className="flex justify-center m-10 space-x-40">
@@ -6,7 +7,7 @@ export default function Nav() {
                 <Link href="/">Home</Link>
             </li>
             <li>
-                <Link href="/blog">Blog</Link>
+                <Link href="/recipes">Recipes</Link>
             </li>
             <li>
                 <Link href="/about">About</Link>
