@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import React from 'react'
 import Nav from './Nav'
+import Footer from './Footer'
 
 export default function RootLayout({
     children,
@@ -13,6 +14,9 @@ export default function RootLayout({
             <body>
                 <Nav />
                 {children}
+                <footer>
+                    <Footer />
+                </footer>
             </body>
         </html>
     )

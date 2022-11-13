@@ -1,5 +1,5 @@
 import { blogData } from '../../data/blogData'
-export default function BlogPage() {
+export default function RecipesPage() {
     return (
         <div>
             {blogData.map((post) => (

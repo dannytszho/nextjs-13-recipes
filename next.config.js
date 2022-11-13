@@ -1,7 +1,17 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  }
+    reactStrictMode: true,
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'placekitten.com',
+                port: '',
+                pathname: '/**',
+            },
+        ],
+    },
+    experimental: {
+        appDir: true,
+    },
 }

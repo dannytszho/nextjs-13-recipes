@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import Carousel from '../components/carousel'
-
+import Carousel from '../components/Carousel'
 import HeaderImage from '../public/img/header.png'
 
 export default function HomePage() {

@@ -21,7 +21,7 @@ export default function IndividualRecipePage({ params }: PageProps) {
         <>
             {post.id.toString() === slug ? (
                 <>
-                    <p>{post.id}</p>
+                    <p key={post.id}>{post.id}</p>
                     <p>{post.title}</p>
                     <p>{post.content}</p>
                 </>
