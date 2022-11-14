@@ -5,7 +5,7 @@ module.exports = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'placekitten.com',
+                hostname: 'baconmockup.com',
                 port: '',
                 pathname: '/**',
             },

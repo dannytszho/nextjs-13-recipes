@@ -27,8 +27,8 @@ export default function HomePage() {
                         anim id est laborum.
                     </p>
                 </div>
-                <Carousel />
             </div>
+            <Carousel />
         </>
     )
 }
