@@ -4,7 +4,7 @@ import HeaderImage from '../public/img/header.png'
 
 export default function HomePage() {
     return (
-        <>
+        <div>
             <div>
                 <Image
                     src={HeaderImage}
@@ -29,6 +29,6 @@ export default function HomePage() {
                 </div>
             </div>
             <Carousel />
-        </>
+        </div>
     )
 }
