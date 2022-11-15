@@ -54,13 +54,17 @@ export default function Carousel() {
     return (
         <div className="carousel my-20 mx-40">
             <div className="flex relative overflow-hidden">
-                <button onClick={prev} disabled={isDisable('prev')}>
+                <button
+                    className="p-4"
+                    onClick={prev}
+                    disabled={isDisable('prev')}
+                >
                     <FaChevronLeft />
                 </button>
 
                 <ul
                     ref={carousel}
-                    className="carousel-container flex gap-20 relative items-center overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0"
+                    className="carousel-container flex gap-16 relative items-center overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0"
                 >
                     {blogData.map((post) => (
                         <li key={post.id}>
@@ -83,7 +87,11 @@ export default function Carousel() {
                         </li>
                     ))}
                 </ul>
-                <button onClick={next} disabled={isDisable('next')}>
+                <button
+                    className="p-4"
+                    onClick={next}
+                    disabled={isDisable('next')}
+                >
                     <FaChevronRight />
                 </button>
             </div>
