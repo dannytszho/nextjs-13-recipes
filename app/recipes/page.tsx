@@ -42,7 +42,7 @@ export default async function RecipesPage() {
                 <div className="m-2 md:m-0">
                     <p className="">Create a recipe</p>
                     <button>
-                        <Link href="/recipes/create-a-recipe">+</Link>
+                        <Link href="/recipes/create-recipe">+</Link>
                     </button>
                 </div>
             </section>
