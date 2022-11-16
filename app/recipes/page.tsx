@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { FaSearch } from 'react-icons/fa'
 
 interface IProps {
@@ -40,7 +41,9 @@ export default async function RecipesPage() {
                 </div>
                 <div className="m-2 md:m-0">
                     <p className="">Create a recipe</p>
-                    <button>+</button>
+                    <button>
+                        <Link href="/recipes/create-a-recipe">+</Link>
+                    </button>
                 </div>
             </section>
 
