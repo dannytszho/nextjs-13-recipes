@@ -13,6 +13,7 @@ export default function RecipesLayout({
                 <Image
                     className="w-full h-56 object-cover object-right-bottom"
                     src={DifferentCuisineImage}
+                    priority={true}
                     alt="Picture of different cuisine"
                 />
             </div>
