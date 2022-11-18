@@ -9,7 +9,7 @@ export default function HomePage() {
                 <Image
                     src={HeaderImage}
                     sizes="(max-width: 2000px) 100vw"
-                    alt="Picture of the author"
+                    alt="Picture of a bowl of chicken wings"
                 />
             </div>
             <div className="flex flex-col m-5 sm:m-10 md:m-28 lg:mx-64">

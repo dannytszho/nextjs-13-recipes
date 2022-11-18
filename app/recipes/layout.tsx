@@ -8,10 +8,10 @@ export default function RecipesLayout({
     children: React.ReactNode
 }) {
     return (
-        <main>
-            <div>
+        <main className="relative">
+            <div className="">
                 <Image
-                    className="w-full h-36 object-cover object-right-bottom"
+                    className="w-full h-56 object-cover object-right-bottom"
                     src={DifferentCuisineImage}
                     alt="Picture of different cuisine"
                 />

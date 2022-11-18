@@ -19,7 +19,7 @@ const links = [
 export default function Nav() {
     const [isOpen, setIsOpen] = useState(true)
     return (
-        <div className="shawdow-md fixed w-full top-0 left-0">
+        <div className="shawdow-md z-[2] fixed w-full top-0 left-0">
             <div className="md:flex bg-white md:py-4 py-10 justify-center">
                 <div
                     onClick={() => setIsOpen(!isOpen)}
@@ -28,7 +28,7 @@ export default function Nav() {
                     {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
                 </div>
                 <ul
-                    className={`md:flex md:items-center md:pb-0 pb-10 md:static bg-white md:z-auto z-[1] left-0 w-full md:w-auto md:pl-0 pl-9 absolute transition-all duration-500 ease-in ${
+                    className={`md:flex md:items-center md:pb-0 pb-10 md:static bg-white md:z-auto z-[3] left-0 w-full md:w-auto md:pl-0 pl-9 absolute transition-all duration-500 ease-in ${
                         isOpen ? 'top-20' : 'top-[-490px]'
                     }`}
                 >

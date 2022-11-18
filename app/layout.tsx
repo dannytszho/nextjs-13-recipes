@@ -13,8 +13,8 @@ export default function RootLayout({
             <head />
             <body>
                 <Nav />
-                <div className="mt-24">{children}</div>
-                <footer>
+                <div className="">{children}</div>
+                <footer className="fixed bottom-0">
                     <Footer />
                 </footer>
             </body>
