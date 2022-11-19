@@ -7,13 +7,49 @@ export default function CreateRecipePage() {
     const [cuisineType, setCuisineType] = useState('')
     const [prepTime, setPrepTime] = useState(0)
     const [cookTime, setCookTime] = useState(0)
+    const [cookUnit, setCookUnit] = useState('')
+    const [prepUnit, setPrepUnit] = useState('')
     const totalTime = prepTime + cookTime
-    const convertMinsToDaysHrsMins = (mins: number) => {
-        const formats = [
-            Math.floor(mins / 60 / 24),
-            Math.floor(mins / 60),
-            Math.floor(mins % 60),
-        ]
+
+    const handleCookUnitChange = () => {
+        const selectedUnit = (
+            document.getElementById('CookTimeUnit') as HTMLInputElement
+        )?.value
+        setCookUnit(selectedUnit)
+    }
+    const handlePrepUnitChange = () => {
+        const selectedUnit = (
+            document.getElementById('PrepTimeUnit') as HTMLInputElement
+        )?.value
+        setPrepUnit(selectedUnit)
+    }
+
+    const convertMinsToDaysHrsMins = (
+        prepTime: number,
+        prepUnit: string,
+        cookTime: number,
+        cookUnit: string
+    ) => {
+        if (cookUnit === 'days') {
+            cookTime = cookTime * 60 * 24
+        }
+        if (cookUnit === 'hours') {
+            cookTime *= 60
+        }
+        if (prepUnit === 'days') {
+            prepTime = prepTime * 60 * 24
+        }
+        if (prepUnit === 'hours') {
+            prepTime *= 60
+        }
+
+        const totalmins = cookTime + prepTime
+        let d = Math.floor(totalmins / 60 / 24)
+        let h = Math.floor(totalmins / 60)
+        h = h - d * 24
+        let m = Math.floor(totalmins % 60)
+        const formats = [d, h, m]
+        console.log(formats)
         return formats
             .map((format: any, index) => {
                 if (format) {
@@ -27,14 +63,14 @@ export default function CreateRecipePage() {
                     return format
                 }
             })
-            .join('')
+            .join(' ')
     }
 
     const pluralTimeUnit = (value: number, unit: string) => {
         if (value === 1) {
             return value + ' ' + unit
         } else if (value > 1) {
-            return value + '' + unit + 's'
+            return value + ' ' + unit + 's'
         }
     }
 
@@ -241,7 +277,12 @@ export default function CreateRecipePage() {
                                 min="0"
                                 className="lg:w-40 md:w-28 w-16 h-8 bg-50 border border-gray-300 rounded-lg"
                             />
-                            <select className="lg:w-72 md:w-48 w-24 h-8 border border-gray-300 rounded-lg">
+                            <select
+                                name="convert1"
+                                id="PrepTimeUnit"
+                                onChange={handlePrepUnitChange}
+                                className="lg:w-72 md:w-48 w-24 h-8 border border-gray-300 rounded-lg"
+                            >
                                 <option>mins</option>
                                 <option>hours</option>
                                 <option>days</option>
@@ -258,15 +299,27 @@ export default function CreateRecipePage() {
                                 min="0"
                                 className="lg:w-40 md:w-28 w-16 h-8 bg-50 border border-gray-300 rounded-lg"
                             />
-                            <select className="lg:w-72 md:w-48 w-24 h-8 border border-gray-300 rounded-lg">
-                                <option>mins</option>
-                                <option>hours</option>
-                                <option>days</option>
+                            <select
+                                name="convert2"
+                                id="CookTimeUnit"
+                                onChange={handleCookUnitChange}
+                                className="lg:w-72 md:w-48 w-24 h-8 border border-gray-300 rounded-lg"
+                            >
+                                <option value="mins">mins</option>
+                                <option value="hours">hours</option>
+                                <option value="days">days</option>
                             </select>
                         </div>
                         <div className="flex gap-10">
                             <p>Total Time</p>
-                            <span>{convertMinsToDaysHrsMins(totalTime)}</span>
+                            <span>
+                                {convertMinsToDaysHrsMins(
+                                    prepTime,
+                                    prepUnit,
+                                    cookTime,
+                                    cookUnit
+                                )}
+                            </span>
                         </div>
                     </div>
 
