@@ -1,4 +1,15 @@
+'use client'
+import { useState } from 'react'
+
 export default function CreateRecipePage() {
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [cuisineType, setCuisineType] = useState('')
+    const [ingredientList, setIngredientList] = useState([
+        { ingredient: '' },
+        { ingredient: '' },
+    ])
+    console.log(ingredientList)
     return (
         <div className="max-w-2xl mr-2 bg-white p-16">
             <form className="p-8 border justify-center top-52 md:left-48 lg:left-72 left-6 right-6 md:right-48 lg:right-72 absolute bg-white">
@@ -16,6 +27,8 @@ export default function CreateRecipePage() {
                         <label className="block mt-4">Recipe Title</label>
                         <input
                             type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mt-2 mb-4"
                             placeholder="recipe's title"
                             required
@@ -24,6 +37,8 @@ export default function CreateRecipePage() {
                         <label>Description</label>
                         <input
                             type="text"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mt-2 mb-4"
                             placeholder="Description"
                             required
@@ -34,6 +49,8 @@ export default function CreateRecipePage() {
                         </label>
                         <select
                             id="post-cuisine-types"
+                            value={cuisineType}
+                            onChange={(e) => setCuisineType(e.target.value)}
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm font-light rounded-lg block w-full p-2.5 mb-6 mt-2"
                         >
                             <option>American</option>
@@ -68,14 +85,22 @@ export default function CreateRecipePage() {
                             (i.e. cups, tablespoons) and any special preparation
                             (i.e. sifted, softened, chopped).
                         </p>
-                        <div id="post-ingredients-inputs" className="mb-2">
-                            <input
-                                type="text"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm font-light rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                                placeholder="Ingredient 1"
-                                required
-                            />
-                        </div>
+                        {ingredientList.map((ingre) => (
+                            <div
+                                id="post-ingredients-inputs"
+                                key={ingre.ingredient}
+                                className="mb-2"
+                            >
+                                <input
+                                    type="text"
+                                    // value={ingre.ingredient}
+                                    // onChange={(e)=>setIngredientList()}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm font-light rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                                    placeholder="Ingredient 1"
+                                    required
+                                />
+                            </div>
+                        ))}
                         <button
                             type="button"
                             id="post-add-ingredients"
@@ -98,6 +123,7 @@ export default function CreateRecipePage() {
                             Add Ingredient
                         </button>
                     </div>
+
                     {/* Directions section */}
                     <div>
                         <h2 className="font-semibold mt-4 mb-2">Directions</h2>
@@ -131,7 +157,7 @@ export default function CreateRecipePage() {
                         ></textarea>
                     </div>
 
-                    {/* Prep, Cook time */}
+                    {/* Prep, Cook time section */}
                     <div className="pt-4">
                         <div className="flex gap-4 my-2">
                             <p className="grow">Prep Time</p>
@@ -161,10 +187,22 @@ export default function CreateRecipePage() {
                         </div>
                         <p>Total Time</p>
                     </div>
-                    {/* Submit buttons */}
+
+                    {/* Submit buttons section */}
                     <div className="flex justify-end space-x-6 pt-4">
                         <button>CANCEL</button>
-                        <button className="bg-red-500 text-white px-6 py-2 rounded-md">
+                        <button
+                            className="bg-red-500 text-white px-6 py-2 rounded-md"
+                            onClick={() => {
+                                alert(
+                                    JSON.stringify({
+                                        title,
+                                        description,
+                                        cuisineType,
+                                    })
+                                )
+                            }}
+                        >
                             Submit Recipe
                         </button>
                     </div>
