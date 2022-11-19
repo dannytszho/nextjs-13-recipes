@@ -1,15 +1,35 @@
 'use client'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 export default function CreateRecipePage() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [cuisineType, setCuisineType] = useState('')
-    const [ingredientList, setIngredientList] = useState([
-        { ingredient: '' },
-        { ingredient: '' },
-    ])
-    console.log(ingredientList)
+    const [ingredientList, setIngredientList] = useState([{ ingredient: '' }])
+    // console.log(ingredientList)
+
+    const handleAddIngredient = () => {
+        setIngredientList([...ingredientList, { ingredient: '' }])
+    }
+
+    const handleRemoveIngredient = (index: number) => {
+        const list = [...ingredientList]
+        list.splice(index, 1)
+        setIngredientList(list)
+    }
+
+    const handleIngredientChange = (
+        e: ChangeEvent<HTMLInputElement>,
+        index: number
+    ) => {
+        e.preventDefault()
+        const { value } = e.target
+        const list = [...ingredientList]
+        list[index].ingredient = value
+        setIngredientList(list)
+        console.log(list)
+    }
+
     return (
         <div className="max-w-2xl mr-2 bg-white p-16">
             <form className="p-8 border justify-center top-52 md:left-48 lg:left-72 left-6 right-6 md:right-48 lg:right-72 absolute bg-white">
@@ -85,43 +105,62 @@ export default function CreateRecipePage() {
                             (i.e. cups, tablespoons) and any special preparation
                             (i.e. sifted, softened, chopped).
                         </p>
-                        {ingredientList.map((ingre) => (
-                            <div
-                                id="post-ingredients-inputs"
-                                key={ingre.ingredient}
-                                className="mb-2"
-                            >
-                                <input
-                                    type="text"
-                                    // value={ingre.ingredient}
-                                    // onChange={(e)=>setIngredientList()}
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm font-light rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
-                                    placeholder="Ingredient 1"
-                                    required
-                                />
+                        {ingredientList.map((ingre, index) => (
+                            <div className="flex">
+                                <div
+                                    id="post-ingredients-inputs"
+                                    key={index}
+                                    className="mb-2 flex-grow"
+                                >
+                                    <input
+                                        type="text"
+                                        value={ingre.ingredient}
+                                        onChange={(e) =>
+                                            handleIngredientChange(e, index)
+                                        }
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm font-light rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 mb-2"
+                                        placeholder={`Ingredient ${index + 1}`}
+                                        required
+                                    />
+                                    {ingredientList.length - 1 === index && (
+                                        <button
+                                            type="button"
+                                            id="post-add-ingredients"
+                                            onClick={handleAddIngredient}
+                                            className="flex flex-row items-center bg-blue-100 hover:bg-blue-200 text-gray-900 text-sm font-regular py-2 px-4 rounded-full"
+                                        >
+                                            <svg
+                                                className="w-5 h-5 mr-2"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                                ></path>
+                                            </svg>
+                                            Add Ingredient
+                                        </button>
+                                    )}
+                                </div>
+                                {ingredientList.length > 1 && (
+                                    <div>
+                                        <button
+                                            onClick={() =>
+                                                handleRemoveIngredient(index)
+                                            }
+                                            className="pl-10 pt-2"
+                                        >
+                                            ❌
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         ))}
-                        <button
-                            type="button"
-                            id="post-add-ingredients"
-                            className="flex flex-row items-center bg-blue-100 hover:bg-blue-200 text-gray-900 text-sm font-regular py-2 px-4 rounded-full"
-                        >
-                            <svg
-                                className="w-5 h-5 mr-2"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                ></path>
-                            </svg>
-                            Add Ingredient
-                        </button>
                     </div>
 
                     {/* Directions section */}
