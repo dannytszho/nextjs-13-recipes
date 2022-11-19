@@ -5,8 +5,40 @@ export default function CreateRecipePage() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [cuisineType, setCuisineType] = useState('')
+    const [prepTime, setPrepTime] = useState(0)
+    const [cookTime, setCookTime] = useState(0)
+    const totalTime = prepTime + cookTime
+    const convertMinsToDaysHrsMins = (mins: number) => {
+        const formats = [
+            Math.floor(mins / 60 / 24),
+            Math.floor(mins / 60),
+            Math.floor(mins % 60),
+        ]
+        return formats
+            .map((format: any, index) => {
+                if (format) {
+                    if (index === 0) {
+                        format = pluralTimeUnit(format, 'day')
+                    } else if (index === 1) {
+                        format = pluralTimeUnit(format, 'hour')
+                    } else if (index === 2) {
+                        format = pluralTimeUnit(format, 'minute')
+                    }
+                    return format
+                }
+            })
+            .join('')
+    }
+
+    const pluralTimeUnit = (value: number, unit: string) => {
+        if (value === 1) {
+            return value + ' ' + unit
+        } else if (value > 1) {
+            return value + '' + unit + 's'
+        }
+    }
+
     const [ingredientList, setIngredientList] = useState([{ ingredient: '' }])
-    // console.log(ingredientList)
 
     const handleAddIngredient = () => {
         setIngredientList([...ingredientList, { ingredient: '' }])
@@ -202,6 +234,10 @@ export default function CreateRecipePage() {
                             <p className="grow">Prep Time</p>
                             <input
                                 type="number"
+                                value={prepTime}
+                                onChange={(e) =>
+                                    setPrepTime(e.target.valueAsNumber)
+                                }
                                 min="0"
                                 className="lg:w-40 md:w-28 w-16 h-8 bg-50 border border-gray-300 rounded-lg"
                             />
@@ -215,6 +251,10 @@ export default function CreateRecipePage() {
                             <p className="grow">Cook Time</p>
                             <input
                                 type="number"
+                                value={cookTime}
+                                onChange={(e) =>
+                                    setCookTime(e.target.valueAsNumber)
+                                }
                                 min="0"
                                 className="lg:w-40 md:w-28 w-16 h-8 bg-50 border border-gray-300 rounded-lg"
                             />
@@ -224,7 +264,10 @@ export default function CreateRecipePage() {
                                 <option>days</option>
                             </select>
                         </div>
-                        <p>Total Time</p>
+                        <div className="flex gap-10">
+                            <p>Total Time</p>
+                            <span>{convertMinsToDaysHrsMins(totalTime)}</span>
+                        </div>
                     </div>
 
                     {/* Submit buttons section */}
