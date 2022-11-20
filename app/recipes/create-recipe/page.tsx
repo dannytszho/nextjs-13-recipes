@@ -1,6 +1,25 @@
 'use client'
 import { ChangeEvent, useState, useReducer } from 'react'
 
+type StateProps = {
+    title: string
+    description: string
+    cuisineType: string
+    prepTime: number
+    cookTime: number
+    cookUnit: string
+    prepUnit: string
+    ingredientList: {
+        ingredient: string
+    }[]
+}
+
+type Action = {
+    type: string
+    key: string
+    payload: string | number
+}
+
 const initialState = {
     title: '',
     description: '',
@@ -12,12 +31,12 @@ const initialState = {
     ingredientList: [{ ingredient: '' }],
 }
 
-const reducer = (state, action) => {
+const reducer = (state: StateProps, action: Action) => {
     switch (action.type) {
         case 'update_input':
             return {
                 ...state,
-                [action.key]: action.value,
+                [action.key]: action.payload,
             }
         default:
             return state
@@ -139,7 +158,7 @@ export default function CreateRecipePage() {
                             onChange={(e) =>
                                 dispatch({
                                     type: 'update_input',
-                                    value: e.target.value,
+                                    payload: e.target.value,
                                     key: 'title',
                                 })
                             }
@@ -155,7 +174,7 @@ export default function CreateRecipePage() {
                             onChange={(e) =>
                                 dispatch({
                                     type: 'update_input',
-                                    value: e.target.value,
+                                    payload: e.target.value,
                                     key: 'description',
                                 })
                             }
@@ -173,7 +192,7 @@ export default function CreateRecipePage() {
                             onChange={(e) =>
                                 dispatch({
                                     type: 'update_input',
-                                    value: e.target.value,
+                                    payload: e.target.value,
                                     key: 'cuisineType',
                                 })
                             }
@@ -338,7 +357,7 @@ export default function CreateRecipePage() {
                                 onChange={(e) =>
                                     dispatch({
                                         type: 'update_input',
-                                        value: e.target.valueAsNumber,
+                                        payload: e.target.valueAsNumber,
                                         key: 'cookTime',
                                     })
                                 }
