@@ -1,15 +1,35 @@
 'use client'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState, useReducer } from 'react'
+
+const initialState = {
+    title: '',
+    description: '',
+    cuisineType: '',
+    prepTime: 0,
+    cookTime: 0,
+    cookUnit: '',
+    prepUnit: '',
+    ingredientList: [{ ingredient: '' }],
+}
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'update_input':
+            return {
+                ...state,
+                [action.key]: action.value,
+            }
+        default:
+            return state
+    }
+}
 
 export default function CreateRecipePage() {
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [cuisineType, setCuisineType] = useState('')
-    const [prepTime, setPrepTime] = useState(0)
-    const [cookTime, setCookTime] = useState(0)
     const [cookUnit, setCookUnit] = useState('')
     const [prepUnit, setPrepUnit] = useState('')
-    const totalTime = prepTime + cookTime
+
+    const [state, dispatch] = useReducer(reducer, initialState)
+    console.log(state)
 
     const handleCookUnitChange = () => {
         const selectedUnit = (
@@ -115,8 +135,14 @@ export default function CreateRecipePage() {
                         <label className="block mt-4">Recipe Title</label>
                         <input
                             type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={state.title}
+                            onChange={(e) =>
+                                dispatch({
+                                    type: 'update_input',
+                                    value: e.target.value,
+                                    key: 'title',
+                                })
+                            }
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mt-2 mb-4"
                             placeholder="recipe's title"
                             required
@@ -125,8 +151,14 @@ export default function CreateRecipePage() {
                         <label>Description</label>
                         <input
                             type="text"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
+                            value={state.description}
+                            onChange={(e) =>
+                                dispatch({
+                                    type: 'update_input',
+                                    value: e.target.value,
+                                    key: 'description',
+                                })
+                            }
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mt-2 mb-4"
                             placeholder="Description"
                             required
@@ -137,8 +169,14 @@ export default function CreateRecipePage() {
                         </label>
                         <select
                             id="post-cuisine-types"
-                            value={cuisineType}
-                            onChange={(e) => setCuisineType(e.target.value)}
+                            value={state.cuisineType}
+                            onChange={(e) =>
+                                dispatch({
+                                    type: 'update_input',
+                                    value: e.target.value,
+                                    key: 'cuisineType',
+                                })
+                            }
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm font-light rounded-lg block w-full p-2.5 mb-6 mt-2"
                         >
                             <option>American</option>
@@ -270,9 +308,13 @@ export default function CreateRecipePage() {
                             <p className="grow">Prep Time</p>
                             <input
                                 type="number"
-                                value={prepTime}
+                                value={state.prepTime}
                                 onChange={(e) =>
-                                    setPrepTime(e.target.valueAsNumber)
+                                    dispatch({
+                                        type: 'update_input',
+                                        value: e.target.valueAsNumber,
+                                        key: 'prepTime',
+                                    })
                                 }
                                 min="0"
                                 className="lg:w-40 md:w-28 w-16 h-8 bg-50 border border-gray-300 rounded-lg"
@@ -292,9 +334,13 @@ export default function CreateRecipePage() {
                             <p className="grow">Cook Time</p>
                             <input
                                 type="number"
-                                value={cookTime}
+                                value={state.cookTime}
                                 onChange={(e) =>
-                                    setCookTime(e.target.valueAsNumber)
+                                    dispatch({
+                                        type: 'update_input',
+                                        value: e.target.valueAsNumber,
+                                        key: 'cookTime',
+                                    })
                                 }
                                 min="0"
                                 className="lg:w-40 md:w-28 w-16 h-8 bg-50 border border-gray-300 rounded-lg"
@@ -314,9 +360,9 @@ export default function CreateRecipePage() {
                             <p>Total Time</p>
                             <span>
                                 {convertMinsToDaysHrsMins(
-                                    prepTime,
+                                    state.prepTime,
                                     prepUnit,
-                                    cookTime,
+                                    state.cookTime,
                                     cookUnit
                                 )}
                             </span>
@@ -331,9 +377,7 @@ export default function CreateRecipePage() {
                             onClick={() => {
                                 alert(
                                     JSON.stringify({
-                                        title,
-                                        description,
-                                        cuisineType,
+                                        state,
                                     })
                                 )
                             }}
