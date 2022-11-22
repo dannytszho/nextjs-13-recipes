@@ -25,18 +25,18 @@ export default function Carousel() {
         }
     }
 
-    const isDisable = (direction: string) => {
-        if (direction === 'prev') {
-            return currentIndex <= 0
-        }
-        if (direction === 'next' && carousel.current !== null) {
-            return (
-                carousel.current.offsetWidth * currentIndex >=
-                maxScrollWidth.current
-            )
-        }
-        return false
-    }
+    // const isDisable = (direction: string) => {
+    //     if (direction === 'prev') {
+    //         return currentIndex <= 0
+    //     }
+    //     if (direction === 'next' && carousel.current !== null) {
+    //         return (
+    //             carousel.current.offsetWidth * currentIndex >=
+    //             maxScrollWidth.current
+    //         )
+    //     }
+    //     return false
+    // }
 
     useEffect(() => {
         if (carousel !== null && carousel.current !== null) {
@@ -57,7 +57,7 @@ export default function Carousel() {
                 <button
                     className="p-4"
                     onClick={prev}
-                    disabled={isDisable('prev')}
+                    // disabled={isDisable('prev')}
                 >
                     <FaChevronLeft />
                 </button>
@@ -90,7 +90,7 @@ export default function Carousel() {
                 <button
                     className="p-4"
                     onClick={next}
-                    disabled={isDisable('next')}
+                    // disabled={isDisable('next')}
                 >
                     <FaChevronRight />
                 </button>

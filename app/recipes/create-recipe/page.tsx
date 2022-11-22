@@ -15,8 +15,16 @@ type StateProps = {
 }
 
 type Action = {
-    type: string
-    key: string
+    type: 'update_input'
+    key:
+        | 'title'
+        | 'description'
+        | 'cuisineType'
+        | 'prepTime'
+        | 'cookTime'
+        | 'cookUnit'
+        | 'prepUnit'
+        | 'ingredientList'
     payload: string | number
 }
 
@@ -207,8 +215,10 @@ export default function CreateRecipePage() {
                             <option>Spanish</option>
                             <option>Greek</option>
                             <option>Mediterranean</option>
+                            <option>Vietnamese</option>
                             <option>Lebanese</option>
                             <option>Moroccan</option>
+                            <option>Korean</option>
                             <option>Turkish</option>
                             <option>Thai</option>
                             <option>Cajun</option>
@@ -367,7 +377,14 @@ export default function CreateRecipePage() {
                             <select
                                 name="convert2"
                                 id="CookTimeUnit"
-                                onChange={handleCookUnitChange}
+                                value={state.cookUnit}
+                                onChange={(e) =>
+                                    dispatch({
+                                        type: 'update_input',
+                                        payload: e.target.value,
+                                        key: 'cookUnit',
+                                    })
+                                }
                                 className="lg:w-72 md:w-48 w-24 h-8 border border-gray-300 rounded-lg"
                             >
                                 <option value="mins">mins</option>
@@ -382,7 +399,7 @@ export default function CreateRecipePage() {
                                     state.prepTime,
                                     prepUnit,
                                     state.cookTime,
-                                    cookUnit
+                                    state.cookUnit
                                 )}
                             </span>
                         </div>
