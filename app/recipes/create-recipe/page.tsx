@@ -52,17 +52,8 @@ const reducer = (state: StateProps, action: Action) => {
 }
 
 export default function CreateRecipePage() {
-    // const [prepUnit, setPrepUnit] = useState('')
-
     const [state, dispatch] = useReducer(reducer, initialState)
     console.log(state)
-
-    // const handlePrepUnitChange = () => {
-    //     const selectedUnit = (
-    //         document.getElementById('PrepTimeUnit') as HTMLInputElement
-    //     )?.value
-    //     setPrepUnit(selectedUnit)
-    // }
 
     const convertMinsToDaysHrsMins = (
         prepTime: number,
