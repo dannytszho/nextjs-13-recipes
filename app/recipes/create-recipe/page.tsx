@@ -52,24 +52,17 @@ const reducer = (state: StateProps, action: Action) => {
 }
 
 export default function CreateRecipePage() {
-    const [cookUnit, setCookUnit] = useState('')
-    const [prepUnit, setPrepUnit] = useState('')
+    // const [prepUnit, setPrepUnit] = useState('')
 
     const [state, dispatch] = useReducer(reducer, initialState)
     console.log(state)
 
-    const handleCookUnitChange = () => {
-        const selectedUnit = (
-            document.getElementById('CookTimeUnit') as HTMLInputElement
-        )?.value
-        setCookUnit(selectedUnit)
-    }
-    const handlePrepUnitChange = () => {
-        const selectedUnit = (
-            document.getElementById('PrepTimeUnit') as HTMLInputElement
-        )?.value
-        setPrepUnit(selectedUnit)
-    }
+    // const handlePrepUnitChange = () => {
+    //     const selectedUnit = (
+    //         document.getElementById('PrepTimeUnit') as HTMLInputElement
+    //     )?.value
+    //     setPrepUnit(selectedUnit)
+    // }
 
     const convertMinsToDaysHrsMins = (
         prepTime: number,
@@ -341,7 +334,7 @@ export default function CreateRecipePage() {
                                 onChange={(e) =>
                                     dispatch({
                                         type: 'update_input',
-                                        value: e.target.valueAsNumber,
+                                        payload: e.target.valueAsNumber,
                                         key: 'prepTime',
                                     })
                                 }
@@ -351,7 +344,13 @@ export default function CreateRecipePage() {
                             <select
                                 name="convert1"
                                 id="PrepTimeUnit"
-                                onChange={handlePrepUnitChange}
+                                onChange={(e) =>
+                                    dispatch({
+                                        type: 'update_input',
+                                        payload: e.target.value,
+                                        key: 'prepUnit',
+                                    })
+                                }
                                 className="lg:w-72 md:w-48 w-24 h-8 border border-gray-300 rounded-lg"
                             >
                                 <option>mins</option>
@@ -397,7 +396,7 @@ export default function CreateRecipePage() {
                             <span>
                                 {convertMinsToDaysHrsMins(
                                     state.prepTime,
-                                    prepUnit,
+                                    state.prepUnit,
                                     state.cookTime,
                                     state.cookUnit
                                 )}
