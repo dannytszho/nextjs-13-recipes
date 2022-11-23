@@ -10,7 +10,6 @@ type ProviderProps = {
 
 export default function Provider({ children }: ProviderProps) {
     const [supabase] = useState(() => createBrowserSupabaseClient())
-    console.log(supabase)
     return (
         <SessionContextProvider supabaseClient={supabase}>
             {children}
