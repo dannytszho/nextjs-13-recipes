@@ -15,7 +15,7 @@ type StateProps = {
     }[]
 }
 
-type Action = {
+type ActionUpdate = {
     type: 'update_input'
     key:
         | 'title'
@@ -27,6 +27,13 @@ type Action = {
         | 'prepUnit'
         | 'ingredientList'
     payload: string | number
+}
+type ActionAdd = {
+    type: 'add_input'
+    key: 'ingredientList'
+    payload: {
+        ingredient: string
+    }[]
 }
 
 const initialState = {
@@ -40,13 +47,14 @@ const initialState = {
     ingredientList: [{ ingredient: '' }],
 }
 
-const reducer = (state: StateProps, action: Action) => {
+const reducer = (state: StateProps, action: ActionUpdate | ActionAdd) => {
     switch (action.type) {
         case 'update_input':
             return {
                 ...state,
                 [action.key]: action.payload,
             }
+        // case ''
         default:
             return state
     }

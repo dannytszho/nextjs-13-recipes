@@ -24,9 +24,6 @@ export default async function RootLayout({
         data: { session },
     } = await supabase.auth.getSession()
 
-    console.log(supabase)
-    console.log({ session })
-
     return (
         <html lang="en" className={`${inter.variable}`}>
             <head />
