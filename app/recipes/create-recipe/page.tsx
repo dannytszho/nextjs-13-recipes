@@ -1,5 +1,6 @@
 'use client'
 import { ChangeEvent, useState, useReducer } from 'react'
+import { createNewRecipe } from '../../../utils/recipes'
 
 type StateProps = {
     title: string
@@ -51,9 +52,17 @@ const reducer = (state: StateProps, action: Action) => {
     }
 }
 
+// createNewRecipe({
+//     title: 'abc',
+//     description: 'abc',
+//     cuisine_type: 'abc',
+//     prep_time: 5,
+//     cook_time: 5,
+//     ingredient_1: 'abc',
+// })
+
 export default function CreateRecipePage() {
     const [state, dispatch] = useReducer(reducer, initialState)
-    console.log(state)
 
     const convertMinsToDaysHrsMins = (
         prepTime: number,
@@ -80,7 +89,6 @@ export default function CreateRecipePage() {
         h = h - d * 24
         let m = Math.floor(totalmins % 60)
         const formats = [d, h, m]
-        console.log(formats)
         return formats
             .map((format: any, index) => {
                 if (format) {
@@ -126,7 +134,6 @@ export default function CreateRecipePage() {
         const list = [...ingredientList]
         list[index].ingredient = value
         setIngredientList(list)
-        console.log(list)
     }
 
     return (
